@@ -1,0 +1,24 @@
+﻿/* newspaper.css */
+#mw-panel{
+  background:#f7f2e8;
+  color:#2f2a25;
+  border:1px solid #b7a58e;
+  box-shadow:0 10px 28px rgba(49,36,28,.10);
+}
+#mw-top{border-bottom:2px double #8f1f2a}
+#mw-title{
+  color:#8f1f2a;
+  font-family:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",serif;
+}
+.mw-btn{border:1px solid #b7a58e;background:#fbf7ef;color:#6b5c50}
+.mw-btn:hover{background:#f0e6d7;color:#8f1f2a}
+#mw-search{border:1px solid #b7a58e;background:#fcf7ee;color:#2f2a25}
+.mw-tab{
+  background:#f3eadc;
+  color:#8f1f2a;
+  border:1px solid #b7a58e;
+  font-family:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",serif;
+}
+.mw-tab.active{background:#fbf7ef;color:#2f2a25;border-color:#8f1f2a}
+#mw-content{background:transparent;color:#2f2a25}
+.mw-card{border-color:#b7a58e;background:rgba(251,247,239,.55)}

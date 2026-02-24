@@ -1,0 +1,17 @@
+﻿/* milan.css */
+#mw-panel{
+  background:#faf9f6;
+  color:#1a3a52;
+  border:1px solid #c5d5e4;
+  box-shadow:0 10px 40px rgba(27,58,82,.08),0 2px 8px rgba(27,58,82,.04);
+}
+#mw-top{border-bottom:1px solid #c5d5e4;background:linear-gradient(to bottom,#faf9f6,rgba(250,249,246,.95))}
+#mw-title{color:#1a3a52}
+.mw-btn{border:1px solid #c5d5e4;background:#fff;color:#4a6785}
+.mw-btn:hover{background:#e8f2f7;color:#3b7ea1}
+#mw-search{border:1px solid #c5d5e4;background:#fff;color:#1a3a52}
+#mw-search:focus{border-color:#3b7ea1;box-shadow:0 0 0 3px rgba(59,126,161,.1)}
+.mw-tab{background:#f7f9fc;color:#4a6785;border:1px dashed #b8cfe0}
+.mw-tab.active{background:#fff;color:#1a3a52;border-style:solid;border-color:#2b5278}
+#mw-content{background:transparent;color:#1a3a52}
+.mw-card{border-color:#b8cfe0;background:rgba(255,255,255,.65)}
