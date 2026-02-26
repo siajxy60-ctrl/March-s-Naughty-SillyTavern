@@ -1,0 +1,51 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>⚝︎三月的世界剧本</title>
+<link rel="stylesheet" href="../skins/milan.css">
+</head>
+<body>
+<section class="panel">
+  <header class="top">
+    <div class="title">⚝︎三月的世界剧本</div>
+    <div class="actions">
+      <button class="btn" onclick="toggleMenu(event)">🎨 皮肤 ▾</button>
+      <div id="skin-menu">
+        <div class="skin-item active">🌾 护眼米蓝</div>
+      </div>
+      <button class="btn">⚙ 设置</button>
+      <button class="btn" onclick="window.parent.postMessage({type:'MARCH_CLOSE'}, '*')">×</button>
+    </div>
+  </header>
+
+  <div class="search-box">
+    <input class="search-input" placeholder="🔍 输入关键词搜索..." />
+    <div class="search-hint">💡 空格=AND，逗号=OR</div>
+  </div>
+
+  <div class="tabs-wrapper">
+    <nav class="tabs">
+      <div class="tab active">记忆表格</div>
+      <div class="tab">记忆总结</div>
+      <div class="tab">角色档案</div>
+      <div class="tab">世界设定</div>
+    </nav>
+  </div>
+
+  <div class="content-wrapper">
+    <main class="content">
+      <p><b>三月的世界剧本 · 美化框架已拆分</b></p>
+      <p>主逻辑在 index.js，皮肤在 skins/milan.css，页面在 ui/panel.html。</p>
+    </main>
+  </div>
+</section>
+
+<script>
+function toggleMenu(e){e.stopPropagation();document.getElementById('skin-menu').classList.toggle('show');}
+document.addEventListener('click',e=>{if(!e.target.closest('.actions'))document.getElementById('skin-menu').classList.remove('show');});
+document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');}));
+</script>
+</body>
+</html>

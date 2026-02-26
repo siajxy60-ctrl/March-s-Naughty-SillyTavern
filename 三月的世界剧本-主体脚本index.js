@@ -1,2 +1,42 @@
-const n='⚝︎三月的世界剧本',e='三月的世界剧本',i='-三月剧本';function t(){return window.getScriptId()}function o(){return window.getVariables({type:'script',script_id:t()})||{}}function d(){return window.getVariables({type:'chat'})||{}}function s(){return'sidebar'===o().ui_position?'sidebar':'quickreply'}function a(){return function(){const n=window.getChatWorldbookName('current');return'string'==typeof n?n:''}().endsWith(i)}function c(){window.$('#march-world-panel').remove()}function r(){c();const r=d()[e]||{},l=s(),w=`\n  <div id="march-world-panel" style="position:fixed;right:16px;top:72px;width:min(92vw,620px);max-height:82vh;z-index:10010;background:#faf9f6;border:1px solid #c5d5e4;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:12px;overflow:auto;">\n    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">\n      <strong>${n}</strong>\n      <div style="display:flex;gap:6px;">\n        <button id="mw-setting">设置</button><button id="mw-close">关闭</button>\n      </div>\n    </div>\n    <div id="mw-setting-box" style="display:none;border-top:1px solid #d9e3ec;padding-top:8px;margin-top:8px;">\n      <div>当前版本：<code>ces-v1.0.1</code></div>\n      <div>最新版本：<code>ces-v1.0.1</code> <button id="mw-update">更新</button></div>\n      <div style="margin-top:8px;">入口位置：\n        <select id="mw-pos">\n          <option value="quickreply" ${'quickreply'===l?'selected':''}>快速回复</option>\n          <option value="sidebar" ${'sidebar'===l?'selected':''}>扩展菜单</option>\n        </select>\n      </div>\n      <div style="margin-top:8px;">API：\n        <select id="mw-api-mode">\n          <option value="default" ${'default'===(r.api_mode||'default')?'selected':''}>默认API</option>\n          <option value="independent" ${'independent'===(r.api_mode||'default')?'selected':''}>独立API</option>\n        </select>\n      </div>\n      <button id="mw-save" style="margin-top:8px;">保存设置</button>\n    </div>\n    <div style="margin-top:10px;color:#4a6785;">世界书绑定：<b>${a()?'已绑定':'未绑定'}</b>（要求后缀 ${i}）</div>\n  </div>`;window.$('body').append(w);const $=window.$;$('#mw-close').on('click',c),$('#mw-setting').on('click',()=>$('#mw-setting-box').toggle()),$('#mw-save').on('click',()=>{const n=String($('#mw-pos').val()||'quickreply'),i=String($('#mw-api-mode').val()||'default');!function(n){const e=o();e.ui_position=n,window.replaceVariables(e,{type:'script',script_id:t()})}(n),function(n){const i=d()[e]||{};window.insertOrAssignVariables({[e]:{...i,...n}},{type:'chat'})}({api_mode:i}),p(),window.toastr?.success?.('设置已保存')}),$('#mw-update').on('click',()=>location.reload())}function p(){window.$('#march-world-menu-item').remove(),window.replaceScriptButtons([]);const $=window.$;if('sidebar'===s()){const e=$('#extensionsMenu');if(e.length){const i=$(`<div id="march-world-menu-item" class="extension_container interactable" tabindex="0"><div class="list-group-item flex-container flexGap5 interactable"><div class="fa-fw fa-solid fa-scroll"></div><span>${n}</span></div></div>`);return i.on('click',r),void e.append(i)}}window.replaceScriptButtons([{name:n,visible:!0}])}async function l(){window.__MARCH_WORLD_INIT__||(window.__MARCH_WORLD_INIT__=!0,window.eventOn(window.getButtonEvent(n),r),window.eventOn(window.tavern_events.CHAT_CHANGED,p),window.eventOn(window.tavern_events.GENERATION_STARTED,()=>{a()||window.toastr?.warning?.(`请绑定后缀为“${i}”的世界书`)}),p(),window.console.info('三月的世界剧本（通用）已加载'),window.toastr?.success?.('三月的世界剧本已加载'))}window.$(()=>window.errorCatched(l)());
-//# sourceMappingURL=index.js.map
+﻿(() => {
+  const SCRIPT_TITLE = "⚝︎三月的世界剧本";
+  const ROOT_ID = "march-world-root";
+  const BTN_ID = "march-world-menu-item";
+  const BASE = "https://cdn.jsdelivr.net/gh/siajxy60-ctrl/March-s-Naughty-SillyTavern@cdn";
+  const PAGE = `${BASE}/ui/panel.html?v=20260226b`;
+
+  if (window.__MARCH_WORLD_INIT__) return;
+  window.__MARCH_WORLD_INIT__ = true;
+
+  function closePanel() { document.getElementById(ROOT_ID)?.remove(); }
+  function openPanel() {
+    closePanel();
+    const root = document.createElement("div");
+    root.id = ROOT_ID;
+    root.style.cssText = "position:fixed;inset:0;z-index:10050;background:rgba(0,0,0,.25);display:flex;justify-content:center;align-items:flex-start;padding-top:56px;";
+    root.innerHTML = `<iframe src="${PAGE}" style="width:min(96vw,640px);height:min(92vh,860px);border:0;"></iframe>`;
+    root.addEventListener("click", (e) => { if (e.target === root) closePanel(); });
+    document.body.appendChild(root);
+  }
+
+  function mountEntry() {
+    document.getElementById(BTN_ID)?.remove();
+    replaceScriptButtons([]);
+
+    const menu = $("#extensionsMenu");
+    if (menu.length) {
+      const item = $(`<div id="${BTN_ID}" class="extension_container interactable" tabindex="0"><div class="list-group-item flex-container flexGap5 interactable"><div class="fa-fw fa-solid fa-scroll"></div><span>${SCRIPT_TITLE}</span></div></div>`);
+      item.on("click", openPanel);
+      menu.append(item);
+      return;
+    }
+    replaceScriptButtons([{ name: SCRIPT_TITLE, visible: true }]);
+  }
+
+  window.addEventListener("message", (ev) => { if (ev.data?.type === "MARCH_CLOSE") closePanel(); });
+  eventOn(getButtonEvent(SCRIPT_TITLE), openPanel);
+  eventOn(tavern_events.CHAT_CHANGED, mountEntry);
+  mountEntry();
+  toastr?.success?.("三月的世界剧本已加载");
+  console.info("三月的世界剧本（分离版）已加载");
+})();
